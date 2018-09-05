@@ -43,10 +43,6 @@ namespace CompStoreWPF
 
         private void BtnAddEquipment_Click(object sender, RoutedEventArgs e)
         {
-            //if(KindOfEquipment.SelectedItem.ToString()== "Процессор")
-                
-            //ListOfEquipment.Items.Add(TextAddEquipment.Text);
-
             switch (KindOfEquipment.SelectedItem.ToString())
             {
                 case "Процессор":
@@ -56,6 +52,7 @@ namespace CompStoreWPF
                             Processor processor = new Processor();
                             processor.ProcessorName = TextAddEquipment.Text;
                             processor.ProcessorPrice = Int32.Parse(TextPriceEquipment.Text);
+                            processor.NumOfProcessor= Int32.Parse(TextNumEquipment.Text);
                             db.Processors.Add(processor);
                             db.SaveChanges();
                         }
@@ -69,6 +66,7 @@ namespace CompStoreWPF
                                 Motherboard motherboard = new Motherboard();
                                 motherboard.MotherboardName = TextAddEquipment.Text;
                                 motherboard.MotherboardPrice = Int32.Parse(TextPriceEquipment.Text);
+                                motherboard.NumOfMotherboard= Int32.Parse(TextNumEquipment.Text);
                                 db.Motherboards.Add(motherboard);
                                 db.SaveChanges();
                             }
@@ -81,6 +79,7 @@ namespace CompStoreWPF
                             RAM ram = new RAM();
                             ram.RAMName = TextAddEquipment.Text;
                             ram.RAMPrice = Int32.Parse(TextPriceEquipment.Text);
+                            ram.NumOfRam= Int32.Parse(TextNumEquipment.Text);
                             db.RAMs.Add(ram);
                             db.SaveChanges();
                         }
@@ -93,15 +92,51 @@ namespace CompStoreWPF
                             HardDisk hardDisk = new HardDisk();
                             hardDisk.HardDiskName = TextAddEquipment.Text;
                             hardDisk.HardDiskPrice = Int32.Parse(TextPriceEquipment.Text);
+                            hardDisk.NumOfHardDisk= Int32.Parse(TextNumEquipment.Text);
                             db.HardDisks.Add(hardDisk);
                             db.SaveChanges();
                         }
                         break;
                     }
-                case "Видео карта": break;
-                case "Корпус": break;
-                case "Монитор": break;
-
+                case "Видео карта":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            VideoCard videoCard = new VideoCard();
+                            videoCard.VideoCardName = TextAddEquipment.Text;
+                            videoCard.VideoCardPrice = Int32.Parse(TextPriceEquipment.Text);
+                            videoCard.NumOfVideoCard = Int32.Parse(TextNumEquipment.Text);
+                            db.VideoCards.Add(videoCard);
+                            db.SaveChanges();
+                        }
+                        break;
+                    }
+                case "Корпус":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            Case cases=new Case();
+                            cases.CaseName = TextAddEquipment.Text;
+                            cases.CasePrice = Int32.Parse(TextPriceEquipment.Text);
+                            cases.NumOfCase = Int32.Parse(TextNumEquipment.Text);
+                            db.Cases.Add(cases);
+                            db.SaveChanges();
+                        }
+                        break;
+                    }
+                case "Монитор":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            Monitor monitor = new Monitor();
+                            monitor.MonitorName = TextAddEquipment.Text;
+                            monitor.MonitorPrice = Int32.Parse(TextPriceEquipment.Text);
+                            monitor.NumOfMonitor = Int32.Parse(TextNumEquipment.Text);
+                            db.Monitors.Add(monitor);
+                            db.SaveChanges();
+                        }
+                        break;
+                    }
             }
 
         }

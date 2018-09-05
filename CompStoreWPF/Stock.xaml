@@ -16,11 +16,15 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Label Margin="100, 30">Наименование комплектующих</Label>
         <ComboBox Name="KindOfEquipment" Grid.Column="0" Grid.Row="0" Width="200" Height="20" SelectionChanged="KindOfEquipment_SelectionChanged"></ComboBox>
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
-            <TextBox Name="TextAddEquipment" Grid.Column="0" Grid.Row="1" Width="200" Height="20" Margin="20, 0, 0, 0"></TextBox>
-            <TextBox Name="TextNumEquipment" Grid.Column="0" Grid.Row="1" Width="40" Height="20" Margin="30, 0, 0, 0"></TextBox>
-            <TextBox Name="TextPriceEquipment" Grid.Column="0" Grid.Row="1" Width="40" Height="20" Margin="30, 0, 0, 0"></TextBox>
+            <Label Width="100" Height="30"  Margin="60, -50, 0, 0">Модель</Label>
+            <TextBox Name="TextAddEquipment" Grid.Column="0" Grid.Row="1" Width="200" Height="20" Margin="-140, 0, 0, 0"></TextBox>
+            <Label Width="50" Height="30"  Margin="40, -50, 0, 0">Кол-во</Label>
+            <TextBox Name="TextNumEquipment" Grid.Column="0" Grid.Row="1" Width="40" Height="20" Margin="-50, 0, 0, 0"></TextBox>
+            <Label Width="50" Height="30"  Margin="30, -50, 0, 0">Цена</Label>
+            <TextBox Name="TextPriceEquipment" Grid.Column="0" Grid.Row="1" Width="40" Height="20" Margin="-55, 0, 0, 0"></TextBox>
         </StackPanel>
         <Button Name="BtnAddEquipment" Grid.Column="0" Grid.Row="2" Width="200" Height="20" Click="BtnAddEquipment_Click">Добавить Комплектующие</Button>
         <Button Name="BtnAllEquipment" Grid.Column="1" Grid.Row="2" Width="200" Height="20" Click="BtnAllEquipment_Click">Список комплектующих</Button>
