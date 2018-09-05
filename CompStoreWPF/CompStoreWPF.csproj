@@ -71,6 +71,19 @@
     <Compile Include="DataModel\Processors.cs" />
     <Compile Include="DataModel\RAM.cs" />
     <Compile Include="DataModel\VideoCard.cs" />
+    <Compile Include="Migrations\201809051210069_InitialCreate.cs" />
+    <Compile Include="Migrations\201809051210069_InitialCreate.Designer.cs">
+      <DependentUpon>201809051210069_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809051716066_Numbers.cs" />
+    <Compile Include="Migrations\201809051716066_Numbers.Designer.cs">
+      <DependentUpon>201809051716066_Numbers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809051724301_Required.cs" />
+    <Compile Include="Migrations\201809051724301_Required.Designer.cs">
+      <DependentUpon>201809051724301_Required.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Stock.xaml.cs">
       <DependentUpon>Stock.xaml</DependentUpon>
     </Compile>
@@ -105,6 +118,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\201809051210069_InitialCreate.resx">
+      <DependentUpon>201809051210069_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809051716066_Numbers.resx">
+      <DependentUpon>201809051716066_Numbers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809051724301_Required.resx">
+      <DependentUpon>201809051724301_Required.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

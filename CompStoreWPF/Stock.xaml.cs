@@ -43,7 +43,7 @@ namespace CompStoreWPF
 
         private void BtnAddEquipment_Click(object sender, RoutedEventArgs e)
         {
-            if(KindOfEquipment.SelectedItem.ToString()== "Процессор")
+            //if(KindOfEquipment.SelectedItem.ToString()== "Процессор")
                 
             //ListOfEquipment.Items.Add(TextAddEquipment.Text);
 
@@ -62,9 +62,42 @@ namespace CompStoreWPF
                         break;
                     }
                     //Запись в таблицу БД Процессоров
-                case "Материнская плата": break;
-                case "Оперативная память": break;
-                case "Жесткий диск": break;
+                case "Материнская плата":
+                        {
+                            using (CompStorEntity db = new CompStorEntity())
+                            {
+                                Motherboard motherboard = new Motherboard();
+                                motherboard.MotherboardName = TextAddEquipment.Text;
+                                motherboard.MotherboardPrice = Int32.Parse(TextPriceEquipment.Text);
+                                db.Motherboards.Add(motherboard);
+                                db.SaveChanges();
+                            }
+                            break;
+                        }
+                case "Оперативная память":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            RAM ram = new RAM();
+                            ram.RAMName = TextAddEquipment.Text;
+                            ram.RAMPrice = Int32.Parse(TextPriceEquipment.Text);
+                            db.RAMs.Add(ram);
+                            db.SaveChanges();
+                        }
+                        break;
+                    }
+                case "Жесткий диск":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            HardDisk hardDisk = new HardDisk();
+                            hardDisk.HardDiskName = TextAddEquipment.Text;
+                            hardDisk.HardDiskPrice = Int32.Parse(TextPriceEquipment.Text);
+                            db.HardDisks.Add(hardDisk);
+                            db.SaveChanges();
+                        }
+                        break;
+                    }
                 case "Видео карта": break;
                 case "Корпус": break;
                 case "Монитор": break;
@@ -81,13 +114,45 @@ namespace CompStoreWPF
         private void BtnAllEquipment_Click(object sender, RoutedEventArgs e)
         {
             ListOfEquipment.Items.Clear();
-            using (CompStorEntity db=new CompStorEntity())
+            switch (KindOfEquipment.SelectedItem.ToString())
             {
-                foreach (var item in db.Processors)
-                {
-                    ListOfEquipment.Items.Add(item.ProcessorName+" Цена: "+item.ProcessorPrice+" грн.");
-                }
+                case "Процессор":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            foreach (var item in db.Processors)
+                            {
+                                ListOfEquipment.Items.Add(item.ProcessorName + " Цена: " + item.ProcessorPrice + " грн.");
+                            }
+                        }
+                        break;
+                    }
+                case "Материнская плата":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            foreach (var item in db.Motherboards)
+                            {
+                                ListOfEquipment.Items.Add(item.MotherboardName + " Цена: " + item.MotherboardPrice + " грн.");
+                            }
+                        }
+                        break;
+                    }
+                    
+                //case:
+                //    break;
+                //case:
+                //    break;
+                //case:
+                //    break;
+                //case:
+                //    break;
+                //case:
+                //    break;
+                //case:
+                //    break;
             }
+                
         }
     }
 }

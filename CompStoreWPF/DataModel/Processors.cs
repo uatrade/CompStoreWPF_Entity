@@ -14,7 +14,11 @@ namespace CompStoreWPF.DataModel
         public int ProcessorsId { get; set; }
 
         [MaxLength(40)]
+        [Required]
         public string ProcessorName { get; set; }
+        [Required]
         public int ProcessorPrice { get; set; }
+        [Required]
+        public int NumOfProcessor { get; set; }
     }
 }
