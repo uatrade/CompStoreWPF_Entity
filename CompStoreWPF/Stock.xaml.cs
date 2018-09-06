@@ -41,7 +41,7 @@ namespace CompStoreWPF
 
         }
 
-        private void BtnAddEquipment_Click(object sender, RoutedEventArgs e)
+        private void BtnAddEquipment_Click(object sender, RoutedEventArgs e)   //Добавление на склад
         {
             switch (KindOfEquipment.SelectedItem.ToString())
             {
@@ -56,9 +56,9 @@ namespace CompStoreWPF
                             db.Processors.Add(processor);
                             db.SaveChanges();
                         }
+                        MessageBox.Show($"{TextAddEquipment.Text} успешно добавлен на склад");
                         break;
                     }
-                    //Запись в таблицу БД Процессоров
                 case "Материнская плата":
                         {
                             using (CompStorEntity db = new CompStorEntity())
@@ -70,7 +70,8 @@ namespace CompStoreWPF
                                 db.Motherboards.Add(motherboard);
                                 db.SaveChanges();
                             }
-                            break;
+                        MessageBox.Show($"{TextAddEquipment.Text} успешно добавлен на склад");
+                        break;
                         }
                 case "Оперативная память":
                     {
@@ -83,6 +84,7 @@ namespace CompStoreWPF
                             db.RAMs.Add(ram);
                             db.SaveChanges();
                         }
+                        MessageBox.Show($"{TextAddEquipment.Text} успешно добавлен на склад");
                         break;
                     }
                 case "Жесткий диск":
@@ -96,6 +98,7 @@ namespace CompStoreWPF
                             db.HardDisks.Add(hardDisk);
                             db.SaveChanges();
                         }
+                        MessageBox.Show($"{TextAddEquipment.Text} успешно добавлен на склад");
                         break;
                     }
                 case "Видео карта":
@@ -109,6 +112,7 @@ namespace CompStoreWPF
                             db.VideoCards.Add(videoCard);
                             db.SaveChanges();
                         }
+                        MessageBox.Show($"{TextAddEquipment.Text} успешно добавлен на склад");
                         break;
                     }
                 case "Корпус":
@@ -122,6 +126,7 @@ namespace CompStoreWPF
                             db.Cases.Add(cases);
                             db.SaveChanges();
                         }
+                        MessageBox.Show($"{TextAddEquipment.Text} успешно добавлен на склад");
                         break;
                     }
                 case "Монитор":
@@ -135,10 +140,10 @@ namespace CompStoreWPF
                             db.Monitors.Add(monitor);
                             db.SaveChanges();
                         }
+                        MessageBox.Show($"{TextAddEquipment.Text} успешно добавлен на склад");
                         break;
                     }
             }
-
         }
 
         private void KindOfEquipment_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -173,19 +178,63 @@ namespace CompStoreWPF
                         }
                         break;
                     }
-                    
-                //case:
-                //    break;
-                //case:
-                //    break;
-                //case:
-                //    break;
-                //case:
-                //    break;
-                //case:
-                //    break;
-                //case:
-                //    break;
+
+                case "Оперативная память":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            foreach (var item in db.RAMs)
+                            {
+                                ListOfEquipment.Items.Add(item.RAMName + " Цена: " + item.RAMPrice + " грн." + " в наличии" + item.NumOfRam + " шт.");
+                            }
+                        }
+                        break;
+                    }
+                case "Жесткий диск":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            foreach (var item in db.HardDisks)
+                            {
+                                ListOfEquipment.Items.Add(item.HardDiskName + " Цена: " + item.HardDiskPrice + " грн." + " в наличии" + item.NumOfHardDisk + " шт.");
+                            }
+                        }
+                        break;
+                    }
+                case "Видео карта":
+                        {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            foreach (var item in db.VideoCards)
+                            {
+                                ListOfEquipment.Items.Add(item.VideoCardName + " Цена: " + item.VideoCardPrice + " грн." + " в наличии" + item.NumOfVideoCard + " шт.");
+                            }
+                        }
+                        break;
+                        }
+                case "Корпус":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            foreach (var item in db.Cases)
+                            {
+                                ListOfEquipment.Items.Add(item.CaseName + " Цена: " + item.CasePrice + " грн." + " в наличии" + item.NumOfCase + " шт.");
+                            }
+                        }
+                        break;
+                    }
+                case "Монитор":
+                    {
+                        using (CompStorEntity db = new CompStorEntity())
+                        {
+                            foreach (var item in db.Monitors)
+                            {
+                                ListOfEquipment.Items.Add(item.MonitorName + " Цена: " + item.MonitorPrice + " грн." + " в наличии" + item.NumOfMonitor + " шт.");
+                            }
+                        }
+                        break;
+                    }
+
             }
                 
         }
