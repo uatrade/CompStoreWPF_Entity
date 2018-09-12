@@ -68,8 +68,10 @@
     <Compile Include="DataModel\HardDisk.cs" />
     <Compile Include="DataModel\Monitor.cs" />
     <Compile Include="DataModel\Motherboard.cs" />
+    <Compile Include="DataModel\MyException.cs" />
     <Compile Include="DataModel\Processors.cs" />
     <Compile Include="DataModel\RAM.cs" />
+    <Compile Include="DataModel\TempData.cs" />
     <Compile Include="DataModel\VideoCard.cs" />
     <Compile Include="Migrations\201809051210069_InitialCreate.cs" />
     <Compile Include="Migrations\201809051210069_InitialCreate.Designer.cs">

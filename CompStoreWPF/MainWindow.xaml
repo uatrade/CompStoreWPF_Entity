@@ -17,6 +17,18 @@
             <ColumnDefinition></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
-        <Button Name="Stock" Grid.Column="1" Grid.Row="2" Width="150" Height="25" Click="Stock_Click">Склад</Button>
+        <StackPanel Grid.Column="1" Grid.Row="2">
+            <Button Name="Stock" Width="150" Height="25" Margin="180, 100, 0, 0" Click="Stock_Click">Склад</Button>
+            <Button Name="BtnClear" Width="150" Height="25" Margin="0, -120, 200, 20" Click="BtnClear_Click">Очистить</Button>
+            <Button Name="BtnSell"  Width="150" Height="25" Margin="180, -120, 0, 20" Click="BtnSell_Click">Продать</Button>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+            <ComboBox Name="MainComboEquipment" Width="200" Height="20" Margin="0, 20, 10, 0"></ComboBox>
+            <DataGrid Name="ListOfEquipment" Width="250" Height="250" Margin="30"></DataGrid>
+            <!--<Button Name="btnlist" Width="150" Height="25" Click="btnlist_Click">Список</Button>-->
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
+            <DataGrid Name="SellGridView" Width="250" Height="250" Margin="60"></DataGrid> 
+        </StackPanel>
     </Grid>
 </Window>
