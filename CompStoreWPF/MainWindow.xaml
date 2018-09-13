@@ -5,7 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompStoreWPF"
         mc:Ignorable="d"
-        Title="Computer Store" Height="450" Width="800">
+        Title="Computer Store" Height="450" Width="800" Background="AntiqueWhite">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Verdana" />
+            <Setter Property="Background" Value="Firebrick" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="Width" Value="150" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="BorderThickness" Value="5" />
+        </Style>
+    </Window.Resources>
     <Grid ShowGridLines="true">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -18,17 +30,17 @@
 
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="1" Grid.Row="2">
-            <Button Name="Stock" Width="150" Height="25" Margin="180, 100, 0, 0" Click="Stock_Click">Склад</Button>
-            <Button Name="BtnClear" Width="150" Height="25" Margin="0, -120, 200, 20" Click="BtnClear_Click">Очистить</Button>
-            <Button Name="BtnSell"  Width="150" Height="25" Margin="180, -120, 0, 20" Click="BtnSell_Click">Продать</Button>
+            <Button Name="Stock" Margin="180, 80, 0, 0" Click="Stock_Click">Склад</Button>
+            <Button Name="BtnClear" Margin="0, -120, 200, 20" Click="BtnClear_Click">Очистить</Button>
+            <Button Name="BtnSell"  Margin="180, -120, 0, 10" Click="BtnSell_Click">Продать</Button>
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
-            <ComboBox Name="MainComboEquipment" Width="200" Height="20" Margin="0, 20, 10, 0"></ComboBox>
-            <DataGrid Name="ListOfEquipment" Width="250" Height="250" Margin="30"></DataGrid>
+            <ComboBox Name="MainComboEquipment" Width="250" Height="25" Margin="0, 30, 0, 0"></ComboBox>
+            <DataGrid Name="ListOfEquipment" Width="250" Height="200" Margin="20"></DataGrid>
             <!--<Button Name="btnlist" Width="150" Height="25" Click="btnlist_Click">Список</Button>-->
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
-            <DataGrid Name="SellGridView" Width="250" Height="250" Margin="60"></DataGrid> 
+            <DataGrid Name="SellGridView" Width="250" Height="200" Margin="70"></DataGrid>
         </StackPanel>
     </Grid>
 </Window>
