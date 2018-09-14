@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompStoreWPF"
         mc:Ignorable="d"
-        Title="Stock" Height="450" Width="800">
-    <Grid ShowGridLines="True">
+        Title="Stock" Height="450" Width="800" Background="AntiqueWhite">
+    <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -26,8 +26,8 @@
             <Label Width="50" Height="30"  Margin="30, -50, 0, 0">Цена</Label>
             <TextBox Name="TextPriceEquipment" Grid.Column="0" Grid.Row="1" Width="40" Height="20" Margin="-55, 0, 0, 0"></TextBox>
         </StackPanel>
-        <Button Name="BtnAddEquipment" Grid.Column="0" Grid.Row="2" Width="200" Height="20" Click="BtnAddEquipment_Click">Добавить Комплектующие</Button>
-        <Button Name="BtnAllEquipment" Grid.Column="1" Grid.Row="2" Width="200" Height="20" Click="BtnAllEquipment_Click">Список комплектующих</Button>
+        <Button Template="{StaticResource btnStyle}" Name="BtnAddEquipment" Grid.Column="0" Grid.Row="2" Click="BtnAddEquipment_Click">Добавить</Button>
+        <Button Template="{StaticResource btnStyle}" Name="BtnAllEquipment" Grid.Column="1" Grid.Row="2" Click="BtnAllEquipment_Click">Остатки склада</Button>
         <ListView Name="ListOfEquipment" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Width="300" Height="250"></ListView>
     </Grid>
 </Window>

@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CompStoreWPF.DataModel;
+using System.IO;
 
 namespace CompStoreWPF
 {
@@ -26,6 +27,7 @@ namespace CompStoreWPF
         List<TempData> list = new List<TempData>();    //temp для добавления в DATaGrid
         List<TempData> SellList = new List<TempData>();
         List<TempData> CustomerList = new List<TempData>();
+        int sum;
 
         TempData tempData;
         public MainWindow()
@@ -40,6 +42,7 @@ namespace CompStoreWPF
             ListOfEquipment.MouseDoubleClick += ListOfEquipment_MouseDoubleClick;
 
             MainComboEquipment.SelectedIndex = 0;
+            TotalSum.Text = "0";
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -89,6 +92,8 @@ namespace CompStoreWPF
                 {
                     SellList.Add(new TempData(tempData.Title, 1, tempData.Price));
                     CustomerList.Add(new TempData(tempData.Title, 1, tempData.Price));
+                    sum += tempData.Price;
+                    TotalSum.Text = sum.ToString();
                 }
                 else
                 {
@@ -115,19 +120,19 @@ namespace CompStoreWPF
             {
                 ListOfEquipment.Columns.Clear();
                 ListOfEquipment.Items.Refresh();
-                //list.Clear();
-                             
-                switch (MainComboEquipment.SelectedItem)
+
+                switch(MainComboEquipment.SelectedItem)
                 {
                     case "Процессор":
+                        
                         {
                                 list.Clear();
                                 list = new List<TempData>();
-                                using (CompStorEntity db = new CompStorEntity())
+                             using(CompStorEntity db = new CompStorEntity())
                                 {
                                     foreach (var item in db.Processors)
                                     {
-                                        list.Add(new TempData(item.ProcessorName, item.NumOfProcessor, item.ProcessorPrice));
+                                       list.Add(new TempData(item.ProcessorName, item.NumOfProcessor, item.ProcessorPrice));
                                     }
                                 }
                                 ListOfEquipment.ItemsSource = list;
@@ -254,13 +259,27 @@ namespace CompStoreWPF
                                 {
                                     item.NumOfProcessor -= 1;
                                     MessageBox.Show($"Товар {item.ProcessorName} успешно продан");
-                                    //TODO Запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(item.ProcessorName + " " + "продан в " + DateTime.Now.ToShortTimeString() + "\r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                                 else if (item.NumOfProcessor == 1)
                                 {
                                     db.Processors.Remove(item);
                                     MessageBox.Show($"Товар успешно продан. {item.ProcessorName} уже закончились на складе");
-                                    //TODO запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(item.ProcessorName + " " + "продан в " + DateTime.Now.ToShortTimeString() +"по цене"+item.ProcessorPrice +"\r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                             }
                         }
@@ -438,6 +457,8 @@ namespace CompStoreWPF
                 list.Clear();
 
                 MainComboEquipment.SelectedIndex = 0;
+                sum = 0;
+                TotalSum.Text = "0";
             }
             catch (Exception ex)
             {

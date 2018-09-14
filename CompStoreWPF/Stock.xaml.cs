@@ -39,10 +39,14 @@ namespace CompStoreWPF
             KindOfEquipment.Items.Add("Корпус");
             KindOfEquipment.Items.Add("Монитор");
 
+            KindOfEquipment.SelectedIndex = 0;
+
         }
 
         private void BtnAddEquipment_Click(object sender, RoutedEventArgs e)   //Добавление на склад
         {
+            try
+            {
             switch (KindOfEquipment.SelectedItem.ToString())
             {
                 case "Процессор":
@@ -144,6 +148,12 @@ namespace CompStoreWPF
                         break;
                     }
             }
+            
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Не заполнены корректно все поля");
+            }
         }
 
         private void KindOfEquipment_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -234,9 +244,8 @@ namespace CompStoreWPF
                         }
                         break;
                     }
-
             }
-                
+
         }
     }
 }
