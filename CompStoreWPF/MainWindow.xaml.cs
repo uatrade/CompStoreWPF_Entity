@@ -15,6 +15,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CompStoreWPF.DataModel;
 using System.IO;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace CompStoreWPF
 {
@@ -29,7 +32,11 @@ namespace CompStoreWPF
         List<TempData> CustomerList = new List<TempData>();
         int sum;
 
-        TempData tempData;
+        //CompStorEntity connect = new CompStorEntity($"Data Source=DESKTOP-E8FFIHV;Initial Catalog=CompStore;User id=sa;password=123456;");
+        CompStorEntity conn;
+        string connection;
+
+         TempData tempData;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,6 +50,17 @@ namespace CompStoreWPF
 
             MainComboEquipment.SelectedIndex = 0;
             TotalSum.Text = "0";
+
+            //conn.Open();
+
+            //SqlConnectionStringBuilder sqlString = new SqlConnectionStringBuilder()
+            //{
+            //    DataSource = "DESKTOP-E8FFIHV".ToString(), // Server name
+            //    InitialCatalog = "CompStore",  //Database
+            //    UserID = "sa",         //Username
+            //    Password = "12345",  //Password
+            //};     
+
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -54,11 +72,28 @@ namespace CompStoreWPF
             MainComboEquipment.Items.Add("Видео карта");
             MainComboEquipment.Items.Add("Корпус");
             MainComboEquipment.Items.Add("Монитор");
+
+            //try
+            //{
+            //    //connection = "Data Source=DESKTOP-E8FFIHV;Initial Catalog=CompStore;User id=sa;password=123456;";
+            //    //Properties.Settings.Default["CompStorEntity"] = connection;
+            //    //Properties.Settings.Default.Save();
+
+            //    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //    var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
+            //    connectionStringsSection.ConnectionStrings["CompStorEntity"].ConnectionString = "Data Source=DESKTOP-E8FFIHV;Initial Catalog=CompStore;User id=sa;password=123456;";
+            //    config.Save();
+            //    ConfigurationManager.RefreshSection("connectionStrings");
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         private void ListOfEquipment_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
             try
             {
                 tempData = null;
@@ -118,24 +153,25 @@ namespace CompStoreWPF
         {
             try
             {
+
                 ListOfEquipment.Columns.Clear();
                 ListOfEquipment.Items.Refresh();
 
-                switch(MainComboEquipment.SelectedItem)
+                switch (MainComboEquipment.SelectedItem)
                 {
                     case "Процессор":
-                        
+
                         {
-                                list.Clear();
-                                list = new List<TempData>();
-                             using(CompStorEntity db = new CompStorEntity())
+                            list.Clear();
+                            list = new List<TempData>();
+                            using (CompStorEntity db = new CompStorEntity())
+                            {
+                                foreach (var item in db.Processors)
                                 {
-                                    foreach (var item in db.Processors)
-                                    {
-                                       list.Add(new TempData(item.ProcessorName, item.NumOfProcessor, item.ProcessorPrice));
-                                    }
+                                    list.Add(new TempData(item.ProcessorName, item.NumOfProcessor, item.ProcessorPrice));
                                 }
-                                ListOfEquipment.ItemsSource = list;
+                            }
+                            ListOfEquipment.ItemsSource = list;
                             break;
                         }
                     case "Материнская плата":
@@ -226,9 +262,11 @@ namespace CompStoreWPF
                 }
             }
             catch (Exception ex)
+
             {
                 MessageBox.Show(ex.Message);
             }
+
         }
 
         private void Stock_Click(object sender, RoutedEventArgs e)
@@ -466,5 +504,11 @@ namespace CompStoreWPF
             }
         }
 
+        private void btnConnect_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectWindow connectWindow= new ConnectWindow();
+
+            connectWindow.Show();
+        }
     }
 }

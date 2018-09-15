@@ -13,6 +13,14 @@ namespace CompStoreWPF.DataModel
         // 
         // If you wish to target a different database and/or database provider, modify the 'CompStorEntity' 
         // connection string in the application configuration file.
+        //public CompStorEntity()
+        //    : base("name=CompStorEntity")
+        //{
+        public CompStorEntity(string CompStorEntity)
+            : base(CompStorEntity)
+        {
+        }
+
         public CompStorEntity()
             : base("name=CompStorEntity")
         {
@@ -30,15 +38,6 @@ namespace CompStoreWPF.DataModel
 
         public DbSet<Monitor> Monitors { get; set; }
 
-
-
-
-        // public virtual DbSet<MyEntity> MyEntities { get; set; }
     }
 
-    //public class MyEntity
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //}
 }
