@@ -22,9 +22,11 @@ namespace CompStoreWPF
     /// </summary>
     public partial class ConnectWindow : Window
     {
-        public ConnectWindow()
+        MainWindow main;
+        public ConnectWindow(MainWindow main)
         {
             InitializeComponent();
+            this.main = main;
         }
 
         private void btnForConnect_Click(object sender, RoutedEventArgs e)
@@ -34,7 +36,7 @@ namespace CompStoreWPF
 
                 var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
-                //connectionStringsSection.ConnectionStrings["CompStorEntity"].ConnectionString = "Data Source=DESKTOP-E8FFIHV;Initial Catalog=CompStore;User id=sa;password=12345;";
+               // connectionStringsSection.ConnectionStrings["CompStorEntity"].ConnectionString = "Data Source=DESKTOP-E8FFIHV;Initial Catalog=CompStore;User id=sa;password=123456;";
                 connectionStringsSection.ConnectionStrings["CompStorEntity"].ConnectionString = $"Data Source={tbServer.Text};Initial Catalog={tbBase.Text};User id={tbLogin.Text};password={tbPassword.Password};";
                 config.Save();
                 ConfigurationManager.RefreshSection("connectionStrings");
@@ -42,7 +44,12 @@ namespace CompStoreWPF
                 //MessageBox.Show(tbBase.Text);
 
                 if (CheckConnection())
+                {
                     LabelIsConnect.Content = "Подключено";
+                    main.BtnSell.IsEnabled = true;
+                    main.MainComboEquipment.IsEnabled = true;
+                    main.Stock.IsEnabled = true;
+                }
                 else
                 {
                     LabelIsConnect.Content = "Введены недостоверные данные: Отключено";

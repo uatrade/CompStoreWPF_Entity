@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CompStoreWPF"
         mc:Ignorable="d"
-        Title="Computer Store" Height="480" Width="800" Background="AntiqueWhite">
+        Title="Computer Store" Height="480" Width="800" Background="AntiqueWhite" >
 
     <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
@@ -18,18 +18,20 @@
             <ColumnDefinition></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="1" Grid.Row="2" Template="{StaticResource btnStyle}" Name="Stock" Margin="180, 80, 0, 0" Click="Stock_Click">Склад</Button>
+        <Button Name="Stock" Grid.Column="1" Grid.Row="2" Template="{StaticResource btnStyle}" Margin="180, 80, 0, 0" Click="Stock_Click">Склад</Button>
         <Button Grid.Column="1" Grid.Row="2" Template="{StaticResource btnStyle}" Name="BtnClear" Margin="0, 0, 200, 10" Click="BtnClear_Click">Очистить</Button>
         <Button Grid.Column="1" Grid.Row="2" Template="{StaticResource btnStyle}" Name="BtnSell"  Margin="180, 0, 0, 10" Click="BtnSell_Click">Продать</Button>
         
         <StackPanel Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+            <Label FontSize="16" Margin="70,0,0,0">Список комплектующих на складе</Label>
             <ComboBox Name="MainComboEquipment" Width="250" Height="25" Margin="0, 30, 0, 0"></ComboBox>
             <DataGrid Name="ListOfEquipment" Width="250" Height="180" Margin="20"></DataGrid>
             <!--<Button Name="btnlist" Width="150" Height="25" Click="btnlist_Click">Список</Button>-->
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="0" Grid.RowSpan="3">
-            <DataGrid Name="SellGridView" Width="250" Height="200" Margin="70"></DataGrid>
-            <TextBox Name="TotalSum" Grid.Column="1" Grid.Row="0" Width="80" Height="30" BorderThickness="2" Margin="0, -80, 0, 0 " FontSize="20"></TextBox>
+            <Label FontSize="16" Margin="50, 0, 0, 20">Список комплектующих для продажи</Label>
+            <DataGrid Name="SellGridView" Width="250" Height="200" Margin="50"></DataGrid>
+            <TextBox Name="TotalSum" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Width="80" Height="30" BorderThickness="2" Margin="0, -50, 0, 0 " FontSize="20"></TextBox>
         </StackPanel>
         <Label Grid.Column="0" Grid.Row="3" Content="Подключение к базе данных" FontSize="16" FontWeight="Bold" Margin="70, 20, 0, 0"></Label>
         <Button Name="btnConnect" Grid.Column="0" Grid.Row="3" Template="{StaticResource btnStyle}" Margin="0, 0, 0, 20 " Content="Подключиться" Click="btnConnect_Click"></Button>

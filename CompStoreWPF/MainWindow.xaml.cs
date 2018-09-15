@@ -32,10 +32,6 @@ namespace CompStoreWPF
         List<TempData> CustomerList = new List<TempData>();
         int sum;
 
-        //CompStorEntity connect = new CompStorEntity($"Data Source=DESKTOP-E8FFIHV;Initial Catalog=CompStore;User id=sa;password=123456;");
-        CompStorEntity conn;
-        string connection;
-
          TempData tempData;
         public MainWindow()
         {
@@ -50,17 +46,9 @@ namespace CompStoreWPF
 
             MainComboEquipment.SelectedIndex = 0;
             TotalSum.Text = "0";
-
-            //conn.Open();
-
-            //SqlConnectionStringBuilder sqlString = new SqlConnectionStringBuilder()
-            //{
-            //    DataSource = "DESKTOP-E8FFIHV".ToString(), // Server name
-            //    InitialCatalog = "CompStore",  //Database
-            //    UserID = "sa",         //Username
-            //    Password = "12345",  //Password
-            //};     
-
+            BtnSell.IsEnabled = false;
+            MainComboEquipment.IsEnabled = false;
+            Stock.IsEnabled = false;
         }
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -72,24 +60,6 @@ namespace CompStoreWPF
             MainComboEquipment.Items.Add("Видео карта");
             MainComboEquipment.Items.Add("Корпус");
             MainComboEquipment.Items.Add("Монитор");
-
-            //try
-            //{
-            //    //connection = "Data Source=DESKTOP-E8FFIHV;Initial Catalog=CompStore;User id=sa;password=123456;";
-            //    //Properties.Settings.Default["CompStorEntity"] = connection;
-            //    //Properties.Settings.Default.Save();
-
-            //    var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            //    var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
-            //    connectionStringsSection.ConnectionStrings["CompStorEntity"].ConnectionString = "Data Source=DESKTOP-E8FFIHV;Initial Catalog=CompStore;User id=sa;password=123456;";
-            //    config.Save();
-            //    ConfigurationManager.RefreshSection("connectionStrings");
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    MessageBox.Show(ex.Message);
-            //}
         }
 
         private void ListOfEquipment_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -300,7 +270,7 @@ namespace CompStoreWPF
                                     using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
                                     {
                                         // преобразуем строку в байты
-                                        byte[] array = System.Text.Encoding.Default.GetBytes(item.ProcessorName + " " + "продан в " + DateTime.Now.ToShortTimeString() + "\r\n");
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(item.ProcessorName + " " + "--- " + item.ProcessorPrice + " грн. \r\n");
                                         // запись массива байтов в файл
                                         fstream.Seek(+2, SeekOrigin.End);
                                         fstream.Write(array, 0, array.Length);
@@ -313,7 +283,7 @@ namespace CompStoreWPF
                                     using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
                                     {
                                         // преобразуем строку в байты
-                                        byte[] array = System.Text.Encoding.Default.GetBytes(item.ProcessorName + " " + "продан в " + DateTime.Now.ToShortTimeString() +"по цене"+item.ProcessorPrice +"\r\n");
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(item.ProcessorName + " " + "--- " +item.ProcessorPrice +" грн. \r\n");
                                         // запись массива байтов в файл
                                         fstream.Seek(+2, SeekOrigin.End);
                                         fstream.Write(array, 0, array.Length);
@@ -335,14 +305,28 @@ namespace CompStoreWPF
                                     {
                                         itemM.NumOfMotherboard -= 1;
                                         MessageBox.Show($"Товар {itemM.MotherboardName} успешно продан");
-                                        //TODO Запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.MotherboardName + " " +"--- " + itemM.MotherboardPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
                                     }
+                                }
                                     else if (itemM.NumOfMotherboard == 1)
                                     {
                                         db.Motherboards.Remove(itemM);
                                         MessageBox.Show($"Товар успешно продан. {itemM.MotherboardName} уже закончились на складе");
-                                        //TODO запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.MotherboardName + " " + "--- " + itemM.MotherboardPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
                                     }
+                                }
                                 }
                             }
                         }
@@ -359,13 +343,27 @@ namespace CompStoreWPF
                                 {
                                     itemM.NumOfHardDisk -= 1;
                                     MessageBox.Show($"Товар {itemM.HardDiskName} успешно продан");
-                                    //TODO Запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.HardDiskName + " " + "--- " + itemM.HardDiskPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                                 else if (itemM.NumOfHardDisk == 1)
                                 {
                                     db.HardDisks.Remove(itemM);
                                     MessageBox.Show($"Товар успешно продан. {itemM.HardDiskName} уже закончились на складе");
-                                    //TODO запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.HardDiskName + " " + "--- " + itemM.HardDiskPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                             }
                         }
@@ -383,13 +381,27 @@ namespace CompStoreWPF
                                 {
                                     itemM.NumOfRam -= 1;
                                     MessageBox.Show($"Товар {itemM.RAMName} успешно продан");
-                                    //TODO Запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.RAMName + " " + "--- " + itemM.RAMPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                                 else if (itemM.NumOfRam == 1)
                                 {
                                     db.RAMs.Remove(itemM);
                                     MessageBox.Show($"Товар успешно продан. {itemM.RAMName} уже закончились на складе");
-                                    //TODO запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.RAMName + " " + "--- " + itemM.RAMPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                             }
                         }
@@ -407,13 +419,27 @@ namespace CompStoreWPF
                                 {
                                     itemM.NumOfCase -= 1;
                                     MessageBox.Show($"Товар {itemM.CaseName} успешно продан");
-                                    //TODO Запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.CaseName + " " + "--- " + itemM.CasePrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                                 else if (itemM.NumOfCase == 1)
                                 {
                                     db.Cases.Remove(itemM);
                                     MessageBox.Show($"Товар успешно продан. {itemM.CaseName} уже закончились на складе");
-                                    //TODO запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.CaseName + " " + "--- " + itemM.CasePrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                             }
                         }
@@ -431,13 +457,27 @@ namespace CompStoreWPF
                                 {
                                     itemM.NumOfVideoCard -= 1;
                                     MessageBox.Show($"Товар {itemM.VideoCardName} успешно продан");
-                                    //TODO Запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.VideoCardName + " " + "--- " + itemM.VideoCardPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                                 else if (itemM.NumOfVideoCard == 1)
                                 {
                                     db.VideoCards.Remove(itemM);
                                     MessageBox.Show($"Товар успешно продан. {itemM.VideoCardName} уже закончились на складе");
-                                    //TODO запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.VideoCardName+ " " + "--- " + itemM.VideoCardPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                             }
                         }
@@ -455,18 +495,41 @@ namespace CompStoreWPF
                                 {
                                     itemM.NumOfMonitor -= 1;
                                     MessageBox.Show($"Товар {itemM.MonitorName} успешно продан");
-                                    //TODO Запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.MonitorName + " " + "--- " + itemM.MonitorPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                                 else if (itemM.NumOfMonitor == 1)
                                 {
                                     db.Monitors.Remove(itemM);
                                     MessageBox.Show($"Товар успешно продан. {itemM.MonitorName} уже закончились на складе");
-                                    //TODO запись в файл
+                                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                                    {
+                                        // преобразуем строку в байты
+                                        byte[] array = System.Text.Encoding.Default.GetBytes(itemM.MonitorName + " " + "--- " + itemM.MonitorPrice + " грн. \r\n");
+                                        // запись массива байтов в файл
+                                        fstream.Seek(+2, SeekOrigin.End);
+                                        fstream.Write(array, 0, array.Length);
+                                    }
                                 }
                             }
                         }
                     }
                     #endregion
+
+                    using (FileStream fstream = new FileStream(@"D:\CompStore.txt", FileMode.OpenOrCreate))
+                    {
+                        // преобразуем строку в байты
+                        byte[] array = System.Text.Encoding.Default.GetBytes("Дата: "+DateTime.Now.ToString()+ "\r\n"+ "ИТОГО: " + TotalSum.Text + " грн. \r\n"+ "******************\r\n");
+                        // запись массива байтов в файл
+                        fstream.Seek(+2, SeekOrigin.End);
+                        fstream.Write(array, 0, array.Length);
+                    }
 
                     db.SaveChanges();
 
@@ -506,9 +569,10 @@ namespace CompStoreWPF
 
         private void btnConnect_Click(object sender, RoutedEventArgs e)
         {
-            ConnectWindow connectWindow= new ConnectWindow();
+            ConnectWindow connectWindow= new ConnectWindow(this);
 
             connectWindow.Show();
         }
+
     }
 }

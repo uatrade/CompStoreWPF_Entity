@@ -20,7 +20,7 @@
         <TextBox Name="tbLogin" Grid.Column="0" Grid.Row="0" Height="25" Width="200" FontSize="16" Margin="120, 60, 30, 0"></TextBox>
         <Label Grid.Column="0" Grid.Row="0" FontSize="16" Height="40" Margin="30, 120, 30, 0">Введите пароль:</Label>
         <PasswordBox Name="tbPassword" Grid.Column="0" Grid.Row="0" Height="25" Width="200" FontSize="16" Margin="120, 120, 30, 0" PasswordChar="*"></PasswordBox>
-        <Label Name="LabelIsConnect" Grid.Column="0" Grid.Row="0" FontSize="20" Height="40" Margin="30, 190, 30, 0"></Label>
+        <Label Name="LabelIsConnect" Foreground="Red" Grid.Column="0" Grid.Row="0" FontSize="20" Height="40" Margin="30, 190, 30, 0"></Label>
         <Button Name="btnForConnect" Template="{StaticResource btnStyle}" Grid.Column="0" Grid.Row="1" Margin="120, 0, 30, 30" Click="btnForConnect_Click">Подключиться</Button>
     </Grid>
 </Window>
